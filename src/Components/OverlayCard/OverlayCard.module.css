@@ -4,7 +4,7 @@
     justify-content: end;
     position: relative;
     left: 350px;
-    top: -131px;
+    top: -455px;
 }
 
 .content-overlay-cards-text {
@@ -12,7 +12,7 @@
     justify-content: center;
     flex-direction: column;
     position: relative;
-    top: -515px;
+    top: -790px;
     left: -210px;
     font-family: var(--primary-font);
 }
@@ -35,7 +35,7 @@
         margin: 0;
         align-content: center;
         position: relative;
-        top: -420px;
+        top: -120px;
         font-size: 2.5rem;
         text-align: center;
         left: 205px;
@@ -48,7 +48,8 @@
         margin: 0;
         align-content: center;
         left: 0%;
-        top: -380px;
+        top: -415px;
+        width: 110%;
     }
 
     .paragraph {
@@ -60,5 +61,6 @@
         justify-content: center;
         display: flex;
         right: 210px;
+        top: 340px;
     }
 }

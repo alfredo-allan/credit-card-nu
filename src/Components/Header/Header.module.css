@@ -52,7 +52,7 @@
         height: 35px;
         padding: 6px;
         left: 55%;
-        top: -30px;
+        top: -25px;
         right: 20px;
         width: 160px;
         min-width: 140px;
@@ -65,7 +65,7 @@
         justify-content: start;
         position: relative;
         left: -70px;
-        top: 3px;
+        top: 10px;
     }
 
     .custom-footer {

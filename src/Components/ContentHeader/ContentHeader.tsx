@@ -9,7 +9,7 @@ const ContentHeader: React.FC<ContentHeaderProps> = () => {
     const isMobile = window.innerWidth < 768; // Exemplo de breakpoint para mobile
 
     return (
-        <div className="container my-5 d-flex flex-column align-items-center">
+        <div className="my-5 d-flex flex-column align-items-center">
             <img
                 src={isMobile ? imageMobile : imageDesktop}
                 alt="Imagem do Content Header"

@@ -13,8 +13,16 @@
     margin-top: 12px;
 }
 
+@media (min-width: 1200px) {
+    .content-image {
+        width: 100%;
+        overflow: hidden;
+    }
+
+}
+
 .title {
-    margin-top: -28%;
+    top: -245px;
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -24,6 +32,7 @@
     font-size: 53px;
     color: white;
     font-family: var(--primary-font);
+    position: relative;
 
 }
 
@@ -40,12 +49,12 @@
     display: flex;
     justify-content: center;
     position: relative;
-    left: 30%;
+    left: 12%;
     width: 430px;
     height: 280px;
     background-color: white;
     border-radius: 30px;
-    top: -260px;
+    top: -500px;
     font-family: var(--primary-font);
 
 }
@@ -139,13 +148,14 @@
 @media (max-width: 768px) {
     .title {
         position: relative;
-        top: -405px;
+        top: -500px;
         font-size: 45px;
         display: flex;
         justify-content: center;
         text-align: left;
         width: 95%;
-        left: 88px;
+        left: 95px;
+        right: 95px;
 
     }
 
@@ -155,8 +165,9 @@
         margin: 0;
         position: relative;
         left: 0;
-        top: -415px;
+        top: -508px;
         width: 95%;
+        ;
 
     }
 
