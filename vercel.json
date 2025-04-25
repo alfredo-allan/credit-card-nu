@@ -1,0 +1,19 @@
+{
+    "rewrites": [
+        {
+            "source": "/credit-card-nu/:path*",
+            "destination": "/:path*"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "s-maxage=1"
+                }
+            ]
+        }
+    ]
+}
