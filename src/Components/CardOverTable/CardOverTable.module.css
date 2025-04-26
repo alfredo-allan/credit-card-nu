@@ -1,0 +1,65 @@
+.content-overlay-card {
+    width: 100%;
+    /* Ocupa toda a largura do container pai */
+    font-family: var(--primary-font);
+    background-color: black;
+    position: relative;
+    top: -660px;
+}
+
+.image-overlay-card {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    opacity: 0.8;
+}
+
+.content-overlay-cards-text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    top: -930px;
+}
+
+.title {
+    color: white;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.paragraph {
+    width: 40%;
+    font-size: 23px;
+    font-weight: 600;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .content-overlay-card {
+        width: 100%;
+        height: auto;
+        top: -50vh;
+    }
+
+    .image-overlay-card {
+        width: 100%;
+        opacity: 2;
+
+    }
+
+    .content-overlay-cards-text {
+        top: -628px;
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 38px;
+    }
+
+    .paragraph {
+        width: 100%;
+        font-size: 17px;
+    }
+}

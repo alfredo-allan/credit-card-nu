@@ -1,5 +1,5 @@
 import React from 'react';
-import imageMobile from '../../Assets/Img/cartoes-sobrepostos-mobile.png'; // Importe a imagem para mobile
+import imageMobile from '../../Assets/Img/cartoes-sobrepostos-desktop.png'; // Importe a imagem para mobile
 import imageDesktop from '../../Assets/Img/cartoes-sobrepostos-desktop.png'; // Importe a imagem para desktop
 import styles from './OverlayCard.module.css'; // Importe o arquivo de estilos CSS Module, se quiser usar
 

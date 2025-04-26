@@ -4,6 +4,7 @@ import ContentHeader from '../../Components/ContentHeader/ContentHeader'; // Aju
 import Footer from '../../Components/Footer/Footer'; // Importe o Footer também
 import OverlayCard from '../../Components/OverlayCard/OverlayCard';
 import styles from './HomePage.module.css'
+import CardOverTable from '../../Components/CardOverTable/CardOverTable';
 
 const HomePage: React.FC = () => {
     return (
@@ -12,7 +13,7 @@ const HomePage: React.FC = () => {
             <main>
                 <ContentHeader />
                 <OverlayCard />
-
+                <CardOverTable />
             </main>
             <Footer />
         </div>
