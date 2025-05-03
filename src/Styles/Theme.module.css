@@ -3,6 +3,7 @@
     --primary-font: 'Roboto';
     --purple-nu: #6f11b3;
     --purple-hover: #561186;
+    --background-benefits: #6f11b382;
 }
 
 html {
@@ -12,4 +13,3 @@ html {
     margin: 0;
     font-family: var(--primary-font);
 }
-

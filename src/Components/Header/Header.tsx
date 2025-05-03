@@ -21,7 +21,10 @@ const Header: React.FC<HeaderProps> = () => {
                 onClick={handleLogoClick} // Adicione o evento onClick à imagem
                 className={styles['logo-header']}
             />
-            <button className={styles['btn-home-nu']}>Quero ser Nubank</button>
+            <div className={styles['content-btn-home-nu']}>
+
+                <button className={styles['btn-home-nu']}>Quero ser Nubank</button>
+            </div>
         </header>
     );
 };

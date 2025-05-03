@@ -6,13 +6,14 @@
     width: 100%;
     text-align: center;
     z-index: 1000;
-    height: 60px;
+    height: 85px;
+    padding: 10px;
 }
 
 .logo-header {
     display: flex;
     justify-content: center;
-    margin-left: 20%;
+    margin-left: 0%;
     width: 85px;
 }
 
@@ -27,9 +28,14 @@
     border-radius: 30px;
     color: white;
     padding: 13px;
-    left: 140vh;
+    right: 8px;
     font-weight: 700;
     top: -57px;
+}
+
+.content-btn-home-nu {
+    display: flex;
+    justify-content: right;
 }
 
 .btn-home-nu:hover {
@@ -64,11 +70,15 @@
         display: flex;
         justify-content: start;
         position: relative;
-        left: -70px;
+        left: 0;
         top: 10px;
     }
 
     .custom-footer {
         position: fixed;
+    }
+
+    .content-btn-home-nu {
+        justify-content: left;
     }
 }
