@@ -8,6 +8,7 @@ import CardOverTable from '../../Components/CardOverTable/CardOverTable';
 import BoxBenifits from '../../Components/BoxBenefits/BoxBenefits';
 import ContentTitleBenefits from '../../Components/ContentTitleBenefits/ContentTitleBenefits';
 import BoxScrambled from '../../Components/BoxScrambled/BoxSrambled';
+import FinalRequest from '../../Components/FinalRequest/FinalRequest';
 
 const HomePage: React.FC = () => {
     return (
@@ -25,6 +26,9 @@ const HomePage: React.FC = () => {
                 </div>
                 <BoxScrambled />
             </main>
+            <div className={styles['final-request']}>
+                <FinalRequest />
+            </div>
             <Footer />
         </div>
     );

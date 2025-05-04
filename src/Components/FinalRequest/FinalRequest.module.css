@@ -1,0 +1,210 @@
+.content-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centraliza os itens horizontalmente */
+    padding: 20px;
+    /* Adicione outros estilos conforme necessário */
+    font-family: var(--primary-font);
+}
+
+
+
+.title {
+    top: -510px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 480px;
+    font-size: 53px;
+    color: black;
+    font-family: var(--primary-font);
+    position: relative;
+    left: 230px;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: -35px;
+    font-family: var(--primary-font);
+
+}
+
+.content-form {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: 232px;
+    width: 430px;
+    height: 280px;
+    background-color: white;
+    border-radius: 30px;
+    top: -440px;
+    font-family: var(--primary-font);
+
+
+}
+
+.cpf-input-form {
+    width: 390px;
+    height: 50px;
+    border: none;
+    background-color: rgb(246, 240, 240);
+    max-width: 390px;
+    border-radius: 30px;
+    padding: 20px;
+    margin-bottom: 3vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    left: 0;
+    position: relative;
+    outline: none;
+    text-align: left;
+    color: black;
+    font-weight: 600;
+    font-family: var(--primary-font);
+
+}
+
+.cpf-input-form::placeholder {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(45, 44, 44);
+    text-align: left;
+}
+
+
+.cpf-input-form:focus {
+    outline: 2px solid var(--purple-nu);
+}
+
+.btn-continue {
+    height: 50px;
+    border: none;
+    background-color: var(--purple-nu);
+    color: white;
+    border-radius: 30px;
+    width: 390px;
+    max-width: 390px;
+    position: relative;
+    left: 0;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: var(--primary-font);
+
+}
+
+.btn-continue:hover {
+    background-color: var(--purple-hover);
+    font-family: var(--primary-font);
+
+
+}
+
+
+.btn-continue:active {
+    transform: scale(0.95);
+    /* Reduz um pouco o tamanho ao clicar */
+    opacity: 0.8;
+    /* Diminui um pouco a opacidade */
+    transition: transform 0.1s ease, opacity 0.1s ease;
+    /* Adiciona uma transição suave para o efeito */
+}
+
+.title-form {
+    font-size: 20px;
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    color: black;
+    font-weight: 600;
+}
+
+.arrow-form {
+    display: flex;
+    justify-content: end;
+    position: relative;
+    left: -15px;
+    top: -30px;
+    font-size: 19px;
+}
+
+.container-form {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    position: relative;
+    top: 550px;
+
+}
+
+.content-image {
+    display: flex;
+    justify-content: right;
+    position: absolute;
+    left: 623px;
+    top: -265px
+}
+
+.image {
+    width: 450px;
+    height: 550px;
+    border-radius: 30px;
+
+}
+
+@media (max-width: 768px) {
+    .title {
+        position: relative;
+        top: -500px;
+        font-size: 45px;
+        display: flex;
+        justify-content: center;
+        text-align: left;
+        width: 95%;
+        left: 95px;
+        right: 95px;
+
+    }
+
+    .content-form {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        position: relative;
+        left: 2%;
+        top: -500px;
+        width: 95%;
+
+
+    }
+
+    .btn-continue,
+    .cpf-input-form {
+
+        width: 95%;
+        left: 2%;
+    }
+
+    .title {
+        font-size: 35px;
+        left: 20px;
+    }
+
+    .content-image {
+        position: absolute;
+        left: 0%;
+        width: 100%;
+        top: 110%;
+    }
+
+    .image {
+        left: 0;
+        width: 100%;
+        height: 500px;
+    }
+}

@@ -8,7 +8,7 @@
 
  .container {
      position: relative;
-     width: 400px;
+     width: 1400px;
      margin: 0 auto;
      padding-top: 100px;
      margin-bottom: 100vh;
@@ -16,6 +16,12 @@
      height: 300vh;
      /* Segura a rolagem dentro dos cards */
  }
+
+ .card.description {
+     display: flex;
+     justify-content: right;
+ }
+
 
 
  .card {
@@ -57,16 +63,43 @@
  .title {
      font-size: 24px;
      margin-bottom: 8px;
+     text-align: left;
  }
 
  .image {
      border-radius: 8px;
      margin-bottom: 16px;
-     max-width: 100%;
+     max-width: 600px;
      height: auto;
+     position: relative;
+     left: -355px;
  }
 
  .description {
-     font-size: 16px;
-     color: #718096;
+     font-size: 25px;
+     color: black;
+     text-align: left;
+     position: relative;
+     top: -150px;
+     width: 50%;
+     left: 650px;
+ }
+
+
+ @media (max-width: 768px) {
+     .image {
+         left: 0;
+         width: 100%;
+     }
+
+     .description {
+         left: 0;
+         width: 100%;
+         top: 0;
+         font-size: 18px;
+     }
+
+     .title {
+         text-align: center;
+     }
  }
