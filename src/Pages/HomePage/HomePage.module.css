@@ -2,3 +2,35 @@
     overflow: hidden;
 }
 
+.content-iteration-benefits {
+    width: 100%;
+    min-height: 130vh;
+    margin-bottom: 50vh;
+    background-color: var(--background-benefits);
+
+}
+
+.content-iteration-box-benefits {
+    margin-top: 210px;
+}
+
+@media (max-width:1200px) {
+    .content-iteration-benefits {
+        height: 140vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-iteration-benefits {
+        display: block;
+        justify-content: center;
+        margin-top: -580px;
+        /* min-height: 10vh; */
+    }
+
+    .content-iteration-box-benefits {
+        display: flex;
+        position: relative;
+        margin-top: -80%;
+    }
+}

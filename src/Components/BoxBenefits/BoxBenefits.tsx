@@ -28,14 +28,16 @@ const benefitsData: Benefit[] = [
 
 const BoxBenefits: React.FC = () => {
     return (
-        <div className={styles.boxBenefits}>
-            {benefitsData.map((benefit, index) => (
-                <div key={index} className={styles.benefitCard}>
-                    <div className={styles.icon}>{benefit.icon}</div>
-                    <h3 className={styles.title}>{benefit.title}</h3>
-                    <p className={styles.description}>{benefit.description}</p>
-                </div>
-            ))}
+        <div className={styles.contentBoxBenefits}>
+            <div className={styles.boxBenefits}>
+                {benefitsData.map((benefit, index) => (
+                    <div key={index} className={styles.benefitCard}>
+                        <div className={styles.icon}>{benefit.icon}</div>
+                        <h3 className={styles.title}>{benefit.title}</h3>
+                        <p className={styles.description}>{benefit.description}</p>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

@@ -1,0 +1,46 @@
+.content-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    /* background-color: var(--background-benefits); */
+    color: black;
+    font-family: var(--primary-font);
+    padding: 50px;
+    font-weight: bold;
+}
+
+@media (min-width: 1200px) {
+    .content-title {
+        position: relative;
+        top: 130px;
+    }
+}
+
+@media (max-width:768px) {
+    .content-title {
+        display: flex;
+        position: relative;
+        top: -550px;
+        text-align: left;
+    }
+
+    .title {
+        font-size: 35px;
+        text-align: left;
+        width: fit-content;
+        position: relative;
+        left: -15px;
+        top: 615px;
+
+    }
+
+}
+
+
+@media (min-width:1200px) {
+    .content-title {
+        margin-top: -47%;
+        padding: 16%;
+    }
+}

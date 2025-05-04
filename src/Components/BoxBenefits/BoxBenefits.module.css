@@ -4,8 +4,14 @@
     justify-content: space-around;
     /* Distribui os cards igualmente em telas maiores */
     padding: 20px;
-    background-color: var(--background-benefits);
-    margin-top: -97vh;
+    /* background-color: var(--purple-nu); */
+}
+
+@media (min-width:1200px) {
+    .boxBenefits {
+        margin-top: -16%;
+        margin-bottom: 33vh;
+    }
 }
 
 .benefitCard {
@@ -47,13 +53,16 @@
     left: 13px;
 }
 
+
+
 /* Media query para tablets (aproximadamente 768px) */
 @media (max-width: 768px) {
     .boxBenefits {
         flex-direction: column;
         margin-bottom: 25vh;
         position: relative;
-        top: 194px;
+        top: 40px;
+        gap: 10px;
     }
 
     .benefitCard {
@@ -62,9 +71,11 @@
         flex-basis: auto;
         height: 280px;
         position: relative;
-        top: 3px;
+        top: 280px;
         padding: 20px;
     }
+
+
 }
 
 /* Media query para mobile (aproximadamente 480px) - Opcional, já está em coluna */

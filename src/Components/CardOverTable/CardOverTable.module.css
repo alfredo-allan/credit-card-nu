@@ -1,3 +1,15 @@
+.container-overlay-card {
+    height: 600px;
+}
+
+@media (min-width: 1200px) {
+    .container-overlay-card {
+        height: 90vh;
+    }
+
+
+}
+
 .content-overlay-card {
     width: 100%;
     /* Ocupa toda a largura do container pai */
@@ -35,6 +47,8 @@
     font-weight: 600;
     color: white;
 }
+
+
 
 @media (max-width: 768px) {
     .content-overlay-card {

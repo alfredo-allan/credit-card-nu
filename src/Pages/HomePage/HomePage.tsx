@@ -6,6 +6,8 @@ import OverlayCard from '../../Components/OverlayCard/OverlayCard';
 import styles from './HomePage.module.css'
 import CardOverTable from '../../Components/CardOverTable/CardOverTable';
 import BoxBenifits from '../../Components/BoxBenefits/BoxBenefits';
+import ContentTitleBenefits from '../../Components/ContentTitleBenefits/ContentTitleBenefits';
+import BoxScrambled from '../../Components/BoxScrambled/BoxSrambled';
 
 const HomePage: React.FC = () => {
     return (
@@ -15,7 +17,13 @@ const HomePage: React.FC = () => {
                 <ContentHeader />
                 <OverlayCard />
                 <CardOverTable />
-                <BoxBenifits />
+                <div className={styles['content-iteration-benefits']}>
+                    <ContentTitleBenefits />
+                    <div className={styles['content-iteration-box-benefits']}>
+                        <BoxBenifits />
+                    </div>
+                </div>
+                <BoxScrambled />
             </main>
             <Footer />
         </div>
