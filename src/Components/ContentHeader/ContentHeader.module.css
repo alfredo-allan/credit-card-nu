@@ -178,3 +178,15 @@
     }
 }
 
+.input-error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
