@@ -65,12 +65,42 @@
 .button {
     margin-top: 8px;
     padding: 14px 18px;
-    background-color: #f2f2f2;
     border: none;
     border-radius: 999px;
-    color: #888;
     font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+/* Estado desabilitado */
+.button:disabled {
+    background-color: #f2f2f2;
+    color: #888;
     cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Estado habilitado */
+.button:not(:disabled) {
+    background-color: #6f11b3;
+    /* Roxo Nubank */
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(111, 17, 179, 0.3);
+}
+
+/* Hover sutil apenas quando habilitado */
+.button:not(:disabled):hover {
+    background-color: #8719d9;
+    /* Tom mais claro */
+    box-shadow: 0 6px 12px rgba(111, 17, 179, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Clique (efeito "pressionar") */
+.button:not(:disabled):active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 6px rgba(111, 17, 179, 0.2);
 }
 
 

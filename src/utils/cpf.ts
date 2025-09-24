@@ -1,4 +1,5 @@
 // src/utils/cpf.ts
+import { cpf } from 'cpf-cnpj-validator';
 
 // Formata o CPF no padrão 000.000.000-00
 export const formatCpf = (value: string): string => {
@@ -10,7 +11,7 @@ export const formatCpf = (value: string): string => {
         .slice(0, 14);
 };
 
-// Valida se está no formato correto
+// Valida se o CPF é válido usando a lib
 export const validateCpf = (value: string): boolean => {
-    return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(value);
+    return cpf.isValid(value);
 };
