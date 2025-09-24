@@ -1,0 +1,45 @@
+.
+├── estrutura.txt
+├── package.json
+├── package-lock.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── manifest.json
+│   └── robots.txt
+├── README.md
+├── src
+│   ├── Api
+│   ├── App.css
+│   ├── App.test.tsx
+│   ├── App.tsx
+│   ├── Assets
+│   │   └── Img
+│   ├── Components
+│   │   ├── BoxBenefits
+│   │   ├── BoxScrambled
+│   │   ├── CardOverTable
+│   │   ├── CheckFormUser
+│   │   ├── ContentHeader
+│   │   ├── ContentTitleBenefits
+│   │   ├── FinalRequest
+│   │   ├── Footer
+│   │   ├── Header
+│   │   ├── OverlayCard
+│   │   └── TopBoxScrambled
+│   ├── index.css
+│   ├── index.tsx
+│   ├── Pages
+│   │   └── HomePage
+│   ├── react-app-env.d.ts
+│   ├── reportWebVitals.ts
+│   ├── Routes
+│   │   └── Routes.tsx
+│   ├── setupTests.ts
+│   └── Styles
+│       └── Theme.module.css
+├── tsconfig.json
+├── vercel.json
+└── yarn.lock
+
+22 directories, 21 files
