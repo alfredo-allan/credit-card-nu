@@ -2,7 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../Pages/HomePage/HomePage';
 import CheckFormUserPage from '../Pages/HomePage/CheckFormUserPage/CheckFormUserPage';
+import PrivacyPolicy from '../Pages/PrivacyPolicy/PrivacyPolicy';
 import LoadingPage from '../Pages/LoadingPage/LoadingPage'; // Importe a página de carregamento
+import PaymentRequestPage from '../Pages/PaymentRequestPage/PaymentRequestPage';
 
 function AppRoutes() {
     return (
@@ -10,6 +12,10 @@ function AppRoutes() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/CheckFormUserPage" element={<CheckFormUserPage />} />
+                <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+                <Route path="/PaymentRequestPage" element={<PaymentRequestPage />} />
+
+
                 {/* Rota temporária de carregamento */}
                 <Route
                     path="/Loading"

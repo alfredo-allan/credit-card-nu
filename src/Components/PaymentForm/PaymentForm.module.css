@@ -1,0 +1,227 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    /* centraliza horizontalmente */
+    align-items: center;
+    /* centraliza verticalmente */
+    gap: 64px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 100vh;
+    /* garante que ocupe a tela inteira */
+    flex-wrap: wrap;
+    /* quebra em mobile se necessário */
+}
+
+.left {
+    flex: 1 1 400px;
+    /* cresce e encolhe, largura mínima */
+    text-align: center;
+    /* centraliza textos do lado esquerdo */
+}
+
+.left h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 24px;
+}
+
+.left p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+}
+
+.form {
+    flex: 1 1 400px;
+    /* cresce e encolhe, largura mínima */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    align-items: center;
+    /* centraliza inputs e botões */
+    text-align: center;
+    /* centraliza textos dentro do form */
+}
+
+.input {
+    padding: 14px 18px;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+    max-width: 500px;
+    /* garante largura maior */
+    box-sizing: border-box;
+    /* padding incluso na largura */
+}
+
+.input:focus {
+    border-color: green;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: flex-start;
+    /* mantém o checkbox no topo do texto */
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    /* texto alinhado à esquerda */
+    width: 100%;
+    /* ocupa toda a largura do form */
+}
+
+.checkboxLabel input {
+    margin-top: 4px;
+    /* alinha checkbox com o texto */
+}
+
+
+.checkboxLabel a {
+    color: #8B00FF;
+    text-decoration: none;
+}
+
+.button {
+    margin-top: 8px;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 999px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 500px;
+    /* mesmo tamanho do input */
+}
+
+.button:disabled {
+    background-color: #f2f2f2;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.button:not(:disabled) {
+    background-color: #6f11b3;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(111, 17, 179, 0.3);
+}
+
+.button:not(:disabled):hover {
+    background-color: #8719d9;
+    box-shadow: 0 6px 12px rgba(111, 17, 179, 0.4);
+    transform: translateY(-2px);
+}
+
+.button:not(:disabled):active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 6px rgba(111, 17, 179, 0.2);
+}
+
+.closeButton {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    padding: 0;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #cfcdcd;
+}
+
+.closeButton:hover {
+    color: #777;
+}
+
+@media (max-width: 768px) {
+    .left {
+        display: none;
+    }
+
+    .form {
+        margin-top: 20px;
+        width: 90%;
+        /* ocupa mais espaço na tela pequena */
+    }
+
+    .input,
+    .button {
+        max-width: 100%;
+    }
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 0.75rem;
+    margin-top: 4px;
+    display: block;
+    font-weight: 500;
+    text-align: center;
+}
+
+.inputError {
+    border: 1px solid #d32f2f;
+    background-color: #fff5f5;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.formGroup label {
+    width: 120px;
+    /* largura fixa para labels à esquerda */
+    font-weight: 600;
+    color: #6f11b3;
+    /* roxo temático */
+    text-align: right;
+    margin-right: 12px;
+}
+
+.formGroup input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.inputError {
+    border: 1px solid #d32f2f;
+    background-color: #fff5f5;
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 0.75rem;
+    margin-top: 4px;
+    margin-left: 132px;
+    /* desloca para alinhar com input */
+    display: block;
+    font-weight: 500;
+}

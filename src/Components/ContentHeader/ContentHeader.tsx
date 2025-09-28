@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import imageMobile from '../../Assets/Img/image-mobile-.png';
 import imageDesktop from '../../Assets/Img/image-desktop.png';
 import styles from './ContentHeader.module.css';
 
-// importa as funções utilitárias
-import { formatCpf, validateCpf } from '../../utils/cpf';
+// Utils
+import { formatCpf, validateCpf } from '../../utils/formatters';
+import { getUserData, saveUserData } from '../../utils/storage';
 
 const ContentHeader: React.FC = () => {
     const isMobile = window.innerWidth < 768;
@@ -13,6 +14,14 @@ const ContentHeader: React.FC = () => {
 
     const [cpf, setCpf] = useState('');
     const [error, setError] = useState('');
+
+    // Carregar CPF salvo ao montar
+    useEffect(() => {
+        const saved = getUserData();
+        if (saved.cpf) {
+            setCpf(saved.cpf);
+        }
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const formatted = formatCpf(e.target.value);
@@ -22,7 +31,10 @@ const ContentHeader: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (validateCpf(cpf)) {
+            // Salva no storage antes de navegar
+            saveUserData('cpf', cpf);
             navigate('/CheckFormUserPage');
         } else {
             setError('Digite um CPF válido no formato 000.000.000-00.');

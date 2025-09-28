@@ -134,3 +134,21 @@
         margin-top: 26%;
     }
 }
+
+/* Estilo básico para mensagens de erro */
+.error {
+    color: #d32f2f;
+    /* vermelho mais suave */
+    font-size: 0.75rem;
+    /* ~12px */
+    margin-top: 4px;
+    margin-left: 2px;
+    display: block;
+    font-weight: 500;
+}
+
+/* Para destacar o input com erro (opcional) */
+.inputError {
+    border: 1px solid #d32f2f;
+    background-color: #fff5f5;
+}

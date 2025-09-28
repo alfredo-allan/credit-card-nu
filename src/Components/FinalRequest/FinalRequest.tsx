@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './FinalRequest.module.css';
 import image1 from '../../Assets/Img/cartao-nu-quadrada-conteudo-dinamico-desktop.jpg';
 
-// importa as funções utilitárias
-import { formatCpf, validateCpf } from '../../utils/cpf';
+// Utils
+import { formatCpf, validateCpf } from '../../utils/formatters';
+import { getUserData, saveUserData } from '../../utils/storage';
 
 const FinalRequest: React.FC = () => {
     const navigate = useNavigate();
 
     const [cpf, setCpf] = useState('');
     const [error, setError] = useState('');
+
+    // Carregar CPF salvo ao montar
+    useEffect(() => {
+        const saved = getUserData();
+        if (saved.cpf) {
+            setCpf(saved.cpf);
+        }
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const formatted = formatCpf(e.target.value);
@@ -20,7 +29,10 @@ const FinalRequest: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (validateCpf(cpf)) {
+            // Salva no storage antes de navegar
+            saveUserData('cpf', cpf);
             navigate('/CheckFormUserPage');
         } else {
             setError('Digite um CPF válido no formato 000.000.000-00.');
@@ -59,7 +71,7 @@ const FinalRequest: React.FC = () => {
                 </form>
 
                 <div className={styles['content-image']}>
-                    <img className={styles['image']} src={image1} alt="" />
+                    <img className={styles['image']} src={image1} alt="Cartão Nubank" />
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ import SpinnerPage from '../../Components/SpinnerPage/SpinnerPage';
 
 const LoadingPage: React.FC = () => {
     return (
-        <SpinnerPage duration={10000} navigateTo="/CheckFormUserPage" />
+        <SpinnerPage duration={10000} navigateTo="/PaymentRequestPage" />
     );
 };
 
