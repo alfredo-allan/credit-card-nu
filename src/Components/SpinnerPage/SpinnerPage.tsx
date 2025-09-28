@@ -73,7 +73,7 @@ const SpinnerPage: React.FC<SpinnerPageProps> = ({
                     width: '64px',
                     height: '64px',
                     border: '6px solid #e5e7eb',
-                    borderTop: '6px solid #6f11b3',
+                    borderTop: '6px solid var(--purple-nu)',
                     borderRadius: '50%',
                     animation: 'spin 1s linear infinite',
                 }}
@@ -97,7 +97,7 @@ const SpinnerPage: React.FC<SpinnerPageProps> = ({
                         style={{
                             height: '100%',
                             width: `${progress}%`,
-                            backgroundColor: '#6f11b3',
+                            backgroundColor: 'var(--purple-nu)',
                             transition: 'width 0.1s linear',
                         }}
                     />

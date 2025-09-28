@@ -1,37 +1,44 @@
+/* PaymentRequestPage.module.css */
 .wrapper {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    /* centraliza vertical */
     align-items: center;
-    justify-content: flex-start;
-    padding: 40px 20px;
+    /* centraliza horizontal */
     min-height: 100vh;
-    /* Ocupa toda a altura da tela */
-    font-family: var(--primary-font);
-    text-align: center;
-    background-color: #f9f9f9;
-    /* Opcional, deixa clean */
-    gap: 16px;
+    /* ocupa tela toda */
+    padding: 16px;
+    box-sizing: border-box;
+    background: #f9f9f9;
+    /* opcional, só pra destacar */
 }
 
 .title {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 12px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: center;
+    color: #222;
 }
 
 .subtitle {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--purple-hover);
-    max-width: 500px;
+    font-size: 1rem;
     margin-bottom: 24px;
+    text-align: center;
+    max-width: 500px;
+    /* não deixa texto muito largo */
+    color: var(--purple-nu);
 }
 
-/* Para garantir que o form fique centralizado */
-.PaymentFormWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
+/* Ajustes para mobile */
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 16px;
+    }
 }

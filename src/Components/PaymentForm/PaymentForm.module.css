@@ -115,7 +115,7 @@
 }
 
 .button:not(:disabled) {
-    background-color: #6f11b3;
+    background-color: var(--purple-nu);
     color: #fff;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(111, 17, 179, 0.3);
@@ -197,7 +197,7 @@
     width: 120px;
     /* largura fixa para labels à esquerda */
     font-weight: 600;
-    color: #6f11b3;
+    color: var(--purple-nu);
     /* roxo temático */
     text-align: right;
     margin-right: 12px;
@@ -216,12 +216,8 @@
     background-color: #fff5f5;
 }
 
-.error {
-    color: #d32f2f;
-    font-size: 0.75rem;
-    margin-top: 4px;
+.formGroup .error {
     margin-left: 132px;
-    /* desloca para alinhar com input */
-    display: block;
-    font-weight: 500;
+    /* acompanha alinhamento do input */
+    text-align: left;
 }

@@ -82,7 +82,7 @@
 
 /* Estado habilitado */
 .button:not(:disabled) {
-    background-color: #6f11b3;
+    background-color: var(--purple-nu);
     /* Roxo Nubank */
     color: #fff;
     cursor: pointer;

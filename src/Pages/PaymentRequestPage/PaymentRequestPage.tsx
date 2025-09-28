@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import PaymentForm from '../../Components/PaymentForm/PaymentForm';
+import { PaymentFormData } from '../../utils/form';
 import styles from './PaymentRequestPage.module.css';
 
 const PaymentRequestPage: React.FC = () => {
-    const [userData, setUserData] = useState({
-        cpf: '',
-        nome: '',
-        celular: '',
-        email: '',
-    });
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const saved = localStorage.getItem('userData');
-        if (saved) setUserData(JSON.parse(saved));
-    }, []);
+    const handleFormComplete = (formData: PaymentFormData) => {
+        // Salva os dados para a próxima página
+        sessionStorage.setItem('payment_form_data', JSON.stringify(formData));
+
+        // Navega para a página de checkout
+        navigate('/PaymentCheckout');
+    };
 
     return (
         <div className={styles.wrapper}>
@@ -21,7 +21,7 @@ const PaymentRequestPage: React.FC = () => {
             <p className={styles.subtitle}>
                 Termine de preencher os dados para finalizar a solicitação.
             </p>
-            <PaymentForm userData={userData} />
+            <PaymentForm onFormComplete={handleFormComplete} />
         </div>
     );
 };

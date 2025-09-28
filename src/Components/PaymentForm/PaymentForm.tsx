@@ -1,177 +1,185 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import styles from './PaymentForm.module.css';
-import { getUserData } from '../../utils/storage';
+import React, { useEffect, useState } from "react";
+import styles from "./PaymentForm.module.css";
+import { getAddressByCep } from "./api";
+import {
+    loadFormData,
+    saveFormData,
+    PaymentFormData,
+    defaultFormData,
+    validateCPF,
+    validateEmail,
+    validatePhone,
+    validateCEP,
+} from "../../utils/form";
 
+// ---------- Props ----------
 interface PaymentFormProps {
-    userData?: {
-        cpf?: string;
-        nome?: string;
-        celular?: string;
-        email?: string;
-    };
+    userData?: Partial<Pick<PaymentFormData, "cpf" | "nome" | "celular" | "email">>;
+    onFormComplete?: (formData: PaymentFormData) => void;
 }
 
-interface AddressData {
-    logradouro: string;
-    bairro: string;
-    localidade: string;
-    uf: string;
-    erro?: boolean;
-}
-
-const PaymentForm: React.FC<PaymentFormProps> = ({ userData }) => {
-    const [formData, setFormData] = useState({
-        cpf: '',
-        nome: '',
-        celular: '',
-        email: '',
-        cep: '',
-        rua: '',
-        bairro: '',
-        cidade: '',
-        uf: '',
-        numero: '',
-        complemento: '',
-        consent: false,
-    });
-
-    const [loading, setLoading] = useState(false);
+// ---------- Componente ----------
+const PaymentForm: React.FC<PaymentFormProps> = ({ userData, onFormComplete }) => {
+    const [formData, setFormData] = useState<PaymentFormData>(defaultFormData);
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [loading, setLoading] = useState(false);
 
-    // Carrega dados do localStorage e props
+    // ---------- Inicializa com dados salvos ou props ----------
     useEffect(() => {
-        const saved = getUserData();
-        if (saved) {
-            setFormData((prev) => ({
-                ...prev,
-                cpf: saved.cpf,
-                nome: saved.nome,
-                celular: saved.celular,
-                email: saved.email,
-            }));
-        }
-
-        if (userData) {
-            setFormData((prev) => ({
-                ...prev,
-                cpf: userData.cpf || prev.cpf,
-                nome: userData.nome || prev.nome,
-                celular: userData.celular || prev.celular,
-                email: userData.email || prev.email,
-            }));
-        }
+        const saved = loadFormData();
+        setFormData((prev) => ({ ...prev, ...saved, ...userData }));
     }, [userData]);
 
+    // ---------- Validação ----------
+    const validateField = (name: string, value: string | boolean) => {
+        switch (name) {
+            case "cpf":
+                return !value || !validateCPF(value as string) ? "CPF inválido" : "";
+            case "email":
+                return !value || !validateEmail(value as string) ? "E-mail inválido" : "";
+            case "celular":
+                return !value || !validatePhone(value as string) ? "Celular inválido" : "";
+            case "cep":
+                return !value || !validateCEP(value as string) ? "CEP inválido" : "";
+            case "nome":
+            case "rua":
+            case "numero":
+            case "bairro":
+            case "cidade":
+            case "uf":
+                return !value ? "Campo obrigatório" : "";
+            case "consent":
+                return value ? "" : "Você precisa aceitar os termos";
+            default:
+                return "";
+        }
+    };
+
+    const validateForm = () => {
+        const newErrors: Record<string, string> = {};
+        Object.keys(formData).forEach((key) => {
+            const error = validateField(key, formData[key as keyof PaymentFormData]);
+            if (error) newErrors[key] = error;
+        });
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    // ---------- Handlers ----------
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value,
-        }));
+        let fieldValue: string | boolean = type === "checkbox" ? checked : value;
 
-        if (type === 'checkbox') setErrors((prev) => ({ ...prev, [name]: '' }));
+        // Máscaras automáticas
+        if (name === "cpf" && typeof fieldValue === "string") {
+            fieldValue = fieldValue
+                .replace(/\D/g, "")
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        }
+
+        if (name === "celular" && typeof fieldValue === "string") {
+            fieldValue = fieldValue
+                .replace(/\D/g, "")
+                .replace(/(\d{2})(\d)/, "($1) $2")
+                .replace(/(\d{5})(\d)/, "$1-$2");
+        }
+
+        if (name === "cep" && typeof fieldValue === "string") {
+            fieldValue = fieldValue.replace(/\D/g, "").replace(/(\d{5})(\d)/, "$1-$2");
+        }
+
+        setFormData((prev) => ({ ...prev, [name]: fieldValue }));
+        setErrors((prev) => ({ ...prev, [name]: validateField(name, fieldValue) }));
     };
 
     const handleCepBlur = async () => {
-        const cep = formData.cep.replace(/\D/g, '');
-        if (cep.length !== 8) {
-            setErrors((prev) => ({ ...prev, cep: 'CEP inválido' }));
+        const cep = formData.cep.replace(/\D/g, "");
+        if (!validateCEP(cep)) {
+            setErrors((prev) => ({ ...prev, cep: "CEP inválido" }));
             return;
         }
 
         try {
-            const res = await axios.get<AddressData>(`https://viacep.com.br/ws/${cep}/json/`);
-            if (res.data.erro) {
-                setErrors((prev) => ({ ...prev, cep: 'CEP não encontrado' }));
+            setLoading(true);
+            const data = await getAddressByCep(cep);
+            if (data.erro) {
+                setErrors((prev) => ({ ...prev, cep: "CEP não encontrado" }));
                 return;
             }
 
             setFormData((prev) => ({
                 ...prev,
-                rua: res.data.logradouro,
-                bairro: res.data.bairro,
-                cidade: res.data.localidade,
-                uf: res.data.uf,
+                rua: data.logradouro,
+                bairro: data.bairro,
+                cidade: data.localidade,
+                uf: data.uf,
             }));
-
-            setErrors((prev) => ({ ...prev, cep: '' }));
+            setErrors((prev) => ({ ...prev, cep: "" }));
         } catch {
-            setErrors((prev) => ({ ...prev, cep: 'Erro ao buscar o CEP' }));
-        }
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-
-        if (!formData.consent) {
-            setErrors((prev) => ({ ...prev, consent: 'Você precisa aceitar os termos' }));
-            setLoading(false);
-            return;
-        }
-
-        try {
-            const token = process.env.REACT_APP_PERFECTPAY_TOKEN;
-            if (!token) throw new Error('Token não configurado');
-
-            const payload = { ...formData };
-            const response = await axios.post('https://api.perfectpay.com.br/payment', payload, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            console.log('Resposta PerfectPay:', response.data);
-            alert('Solicitação enviada com sucesso!');
-
-            // Salva os dados no localStorage
-            localStorage.setItem('userData', JSON.stringify(formData));
-        } catch (err: any) {
-            console.error(err);
-            alert(err.message || 'Erro ao enviar solicitação');
+            setErrors((prev) => ({ ...prev, cep: "Erro ao buscar o CEP" }));
         } finally {
             setLoading(false);
         }
     };
 
-    const isFormValid =
-        formData.consent &&
-        formData.cep &&
-        formData.numero &&
-        !Object.values(errors).some((err) => err);
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+        saveFormData(formData);
+        if (onFormComplete) onFormComplete(formData);
+    };
 
+    // ---------- Estado de validade ----------
+    const isFormValid =
+        Object.values(errors).every((err) => !err) &&
+        formData.consent &&
+        !loading;
+
+    // ---------- Render ----------
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            <input type="text" name="cpf" placeholder="CPF" value={formData.cpf} disabled className={styles.input} />
-            <input type="text" name="nome" placeholder="Nome" value={formData.nome} disabled className={styles.input} />
-            <input type="text" name="celular" placeholder="Celular" value={formData.celular} disabled className={styles.input} />
-            <input type="email" name="email" placeholder="E-mail" value={formData.email} disabled className={styles.input} />
+            {[
+                { name: "cpf", type: "text", placeholder: "CPF" },
+                { name: "nome", type: "text", placeholder: "Nome completo" },
+                { name: "celular", type: "text", placeholder: "Celular" },
+                { name: "email", type: "email", placeholder: "E-mail" },
+                { name: "cep", type: "text", placeholder: "CEP", onBlur: handleCepBlur },
+                { name: "rua", type: "text", placeholder: "Rua" },
+                { name: "numero", type: "text", placeholder: "Número" },
+                { name: "complemento", type: "text", placeholder: "Complemento (opcional)" },
+                { name: "bairro", type: "text", placeholder: "Bairro" },
+                { name: "cidade", type: "text", placeholder: "Cidade" },
+                { name: "uf", type: "text", placeholder: "UF", maxLength: 2 },
+            ].map((field) => (
+                <React.Fragment key={field.name}>
+                    <input
+                        {...field}
+                        value={formData[field.name as keyof PaymentFormData] as string}
+                        onChange={handleChange}
+                        disabled={!!(userData && userData[field.name as keyof typeof userData])}
+                        className={`${styles.input} ${errors[field.name] ? styles.inputError : ""
+                            }`}
+                    />
+                    {errors[field.name] && <span className={styles.error}>{errors[field.name]}</span>}
+                </React.Fragment>
+            ))}
 
-            <input
-                type="text"
-                name="cep"
-                placeholder="CEP"
-                value={formData.cep}
-                onChange={handleChange}
-                onBlur={handleCepBlur}
-                className={`${styles.input} ${errors.cep ? styles.inputError : ''}`}
-            />
-            {errors.cep && <span className={styles.error}>{errors.cep}</span>}
-
-            <input type="text" name="rua" placeholder="Rua" value={formData.rua} onChange={handleChange} className={styles.input} />
-            <input type="text" name="bairro" placeholder="Bairro" value={formData.bairro} onChange={handleChange} className={styles.input} />
-            <input type="text" name="cidade" placeholder="Cidade" value={formData.cidade} onChange={handleChange} className={styles.input} />
-            <input type="text" name="uf" placeholder="UF" value={formData.uf} onChange={handleChange} className={styles.input} />
-            <input type="text" name="numero" placeholder="Número" value={formData.numero} onChange={handleChange} className={styles.input} />
-            <input type="text" name="complemento" placeholder="Complemento" value={formData.complemento} onChange={handleChange} className={styles.input} />
-
+            {/* Checkbox separado */}
             <label className={styles.checkboxLabel}>
-                <input type="checkbox" name="consent" checked={formData.consent} onChange={handleChange} />
+                <input
+                    type="checkbox"
+                    name="consent"
+                    checked={formData.consent}
+                    onChange={handleChange}
+                />
                 Li e aceito a Política de Privacidade.
             </label>
             {errors.consent && <span className={styles.error}>{errors.consent}</span>}
 
-            <button type="submit" className={styles.button} disabled={!isFormValid || loading}>
-                {loading ? 'Salvando...' : 'Salvar'}
+            <button type="submit" className={styles.button} disabled={!isFormValid}>
+                {loading ? "Verificando..." : onFormComplete ? "Continuar para Pagamento" : "Salvar"}
             </button>
         </form>
     );
