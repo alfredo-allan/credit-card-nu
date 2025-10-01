@@ -13,6 +13,7 @@ export interface PaymentFormData {
     numero: string;
     complemento: string;
     consent: boolean;
+    approvedValue?: number; // ✅ novo campo opcional
 }
 
 export const defaultFormData: PaymentFormData = {
@@ -28,6 +29,7 @@ export const defaultFormData: PaymentFormData = {
     numero: "",
     complemento: "",
     consent: false,
+    approvedValue: undefined, // ✅ inicia vazio
 };
 
 // ---------- Persistência ----------

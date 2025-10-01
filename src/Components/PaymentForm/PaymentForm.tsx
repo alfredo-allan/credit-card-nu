@@ -12,22 +12,25 @@ import {
     validateCEP,
 } from "../../utils/form";
 
-// ---------- Props ----------
 interface PaymentFormProps {
-    userData?: Partial<Pick<PaymentFormData, "cpf" | "nome" | "celular" | "email">>;
+    userData?: Partial<Pick<PaymentFormData, "cpf" | "nome" | "celular" | "email" | "approvedValue">>;
     onFormComplete?: (formData: PaymentFormData) => void;
 }
 
-// ---------- Componente ----------
 const PaymentForm: React.FC<PaymentFormProps> = ({ userData, onFormComplete }) => {
     const [formData, setFormData] = useState<PaymentFormData>(defaultFormData);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
 
-    // ---------- Inicializa com dados salvos ou props ----------
+    // Inicializa com dados salvos ou props
     useEffect(() => {
         const saved = loadFormData();
-        setFormData((prev) => ({ ...prev, ...saved, ...userData }));
+        setFormData({
+            ...defaultFormData,
+            ...saved,
+            ...userData,
+            approvedValue: saved.approvedValue ?? userData?.approvedValue ?? undefined,
+        });
     }, [userData]);
 
     // ---------- Validação ----------
@@ -58,8 +61,11 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ userData, onFormComplete }) =
     const validateForm = () => {
         const newErrors: Record<string, string> = {};
         Object.keys(formData).forEach((key) => {
-            const error = validateField(key, formData[key as keyof PaymentFormData]);
-            if (error) newErrors[key] = error;
+            const value = formData[key as keyof PaymentFormData];
+            if (typeof value === "string" || typeof value === "boolean") {
+                const error = validateField(key, value);
+                if (error) newErrors[key] = error;
+            }
         });
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -127,11 +133,11 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ userData, onFormComplete }) =
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!validateForm()) return;
+
         saveFormData(formData);
         if (onFormComplete) onFormComplete(formData);
     };
 
-    // ---------- Estado de validade ----------
     const isFormValid =
         Object.values(errors).every((err) => !err) &&
         formData.consent &&
@@ -152,21 +158,38 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ userData, onFormComplete }) =
                 { name: "bairro", type: "text", placeholder: "Bairro" },
                 { name: "cidade", type: "text", placeholder: "Cidade" },
                 { name: "uf", type: "text", placeholder: "UF", maxLength: 2 },
-            ].map((field) => (
-                <React.Fragment key={field.name}>
-                    <input
-                        {...field}
-                        value={formData[field.name as keyof PaymentFormData] as string}
-                        onChange={handleChange}
-                        disabled={!!(userData && userData[field.name as keyof typeof userData])}
-                        className={`${styles.input} ${errors[field.name] ? styles.inputError : ""
-                            }`}
-                    />
-                    {errors[field.name] && <span className={styles.error}>{errors[field.name]}</span>}
-                </React.Fragment>
-            ))}
+            ].map((field) => {
+                const isCheckbox = field.name === "consent";
+                const value =
+                    typeof formData[field.name as keyof PaymentFormData] === "string"
+                        ? (formData[field.name as keyof PaymentFormData] as string)
+                        : undefined;
+                const checked =
+                    typeof formData[field.name as keyof PaymentFormData] === "boolean"
+                        ? (formData[field.name as keyof PaymentFormData] as boolean)
+                        : undefined;
 
-            {/* Checkbox separado */}
+                return (
+                    <React.Fragment key={field.name}>
+                        <input
+                            {...field}
+                            value={isCheckbox ? undefined : value}
+                            checked={isCheckbox ? checked : undefined}
+                            onChange={handleChange}
+                            disabled={!!(
+                                userData &&
+                                userData[field.name as keyof typeof userData]
+                            )}
+                            className={`${styles.input} ${errors[field.name] ? styles.inputError : ""
+                                }`}
+                        />
+                        {errors[field.name] && (
+                            <span className={styles.error}>{errors[field.name]}</span>
+                        )}
+                    </React.Fragment>
+                );
+            })}
+
             <label className={styles.checkboxLabel}>
                 <input
                     type="checkbox"
@@ -179,7 +202,11 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ userData, onFormComplete }) =
             {errors.consent && <span className={styles.error}>{errors.consent}</span>}
 
             <button type="submit" className={styles.button} disabled={!isFormValid}>
-                {loading ? "Verificando..." : onFormComplete ? "Continuar para Pagamento" : "Salvar"}
+                {loading
+                    ? "Verificando..."
+                    : onFormComplete
+                        ? "Continuar para Pagamento"
+                        : "Salvar"}
             </button>
         </form>
     );

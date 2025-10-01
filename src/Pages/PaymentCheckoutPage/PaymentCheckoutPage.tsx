@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { redirectToPerfectPayCheckout } from '../../Components/PaymentForm/api';
 import { PaymentFormData } from '../../utils/form';
+import { submitCheckoutData } from './api';
 import styles from './PaymentCheckoutPage.module.css';
 
 const PaymentCheckoutPage: React.FC = () => {
@@ -25,23 +26,29 @@ const PaymentCheckoutPage: React.FC = () => {
         navigate('/PaymentRequestPage');
     };
 
-    const handlePayment = () => {
+    const handlePayment = async () => {
         if (!formData) return;
 
         setLoading(true);
+        try {
+            // 1. Submete os dados para o backend (mock inicial)
+            await submitCheckoutData(formData);
 
-        // Redireciona para o checkout da PerfectPay
-        const checkoutUrl = redirectToPerfectPayCheckout(formData);
+            // 2. Redireciona para o checkout da PerfectPay
+            const checkoutUrl = redirectToPerfectPayCheckout(formData);
 
-        // Salva onde estava para o retorno
-        sessionStorage.setItem('return_url', window.location.href);
+            // Salva onde estava para o retorno
+            sessionStorage.setItem('return_url', window.location.href);
 
-        // Abre em nova aba
-        window.open(checkoutUrl, '_blank');
-        // ou para redirecionar na mesma aba:
-        // window.location.href = checkoutUrl;
-
-        setLoading(false);
+            // Abre em nova aba
+            window.open(checkoutUrl, '_blank');
+            // ou para redirecionar na mesma aba:
+            // window.location.href = checkoutUrl;
+        } catch (error) {
+            console.error("Erro ao processar pagamento:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (!formData) {
@@ -60,6 +67,10 @@ const PaymentCheckoutPage: React.FC = () => {
 
                 <div className={styles.orderSummary}>
                     <h3>Resumo do Pedido</h3>
+                    <span className={styles.shippingAlert}>
+                        <strong> Cartão grátis!</strong> Você adianta apenas o custo do envio,
+                        e esse valor é 100% devolvido em créditos no seu cartão.
+                    </span>
                     <div className={styles.summaryItem}>
                         <span>Produto</span>
                         <span>R$ 30,00</span>
@@ -69,7 +80,10 @@ const PaymentCheckoutPage: React.FC = () => {
                         <span><strong>R$ 30,00</strong></span>
                     </div>
                 </div>
+                <div className={styles.emailResponse}>
+                    <b className={styles.emailResponse}>Após o pagamento você recebera um código de rastreio</b>
 
+                </div>
                 <div className={styles.customerInfo}>
                     <h3>Dados do Cliente</h3>
                     <div className={styles.infoGrid}>
@@ -85,7 +99,10 @@ const PaymentCheckoutPage: React.FC = () => {
 
                 <div className={styles.paymentInfo}>
                     <h3>🔒 Pagamento Seguro</h3>
-                    <p>Você será redirecionado para a <strong>PerfectPay</strong> para finalizar o pagamento de forma segura.</p>
+                    <p>
+                        Você será redirecionado para a <strong>PerfectPay</strong> para finalizar
+                        o pagamento de forma segura.
+                    </p>
                     <p>Na PerfectPay você poderá escolher entre:</p>
                     <ul>
                         <li>💳 <strong>Cartão de Crédito</strong> - Aprovação imediata</li>
@@ -99,7 +116,7 @@ const PaymentCheckoutPage: React.FC = () => {
                     onClick={handlePayment}
                     disabled={loading}
                 >
-                    {loading ? "Redirecionando..." : "Ir para Pagamento"}
+                    {loading ? "Enviando dados..." : "Ir para Pagamento"}
                 </button>
 
                 <div className={styles.securityInfo}>

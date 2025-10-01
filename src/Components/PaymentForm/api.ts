@@ -21,6 +21,7 @@ export interface PaymentFormData {
     numero: string;
     complemento: string;
     consent: boolean;
+    approvedValue?: number; // novo campo
 }
 
 export const getAddressByCep = async (cep: string): Promise<AddressData> => {

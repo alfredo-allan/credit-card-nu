@@ -1,0 +1,132 @@
+.modalWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 20px;
+}
+
+.content {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.username {
+    color: var(--purple-nu);
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #444;
+}
+
+.value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--purple-nu);
+    margin: 20px 0;
+    animation: pulse 1.5s infinite;
+}
+
+.button {
+    margin-top: 20px;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 999px;
+    font-size: 16px;
+    background-color: var(--purple-nu);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.button:hover {
+    background-color: #8719d9;
+    box-shadow: 0 6px 12px rgba(111, 17, 179, 0.4);
+    transform: translateY(-2px);
+}
+
+.closeButton {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    padding: 0;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #cfcdcd;
+}
+
+.closeButton:hover {
+    color: #777;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.85;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 24px 20px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .value {
+        font-size: 26px;
+    }
+}

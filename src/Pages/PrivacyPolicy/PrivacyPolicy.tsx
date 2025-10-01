@@ -46,7 +46,7 @@ const PrivacyPolicy: React.FC = () => {
                 onClick={handleProceed}
                 disabled={!consent}
             >
-                Proceed
+                Concordar
             </button>
         </div>
     );
